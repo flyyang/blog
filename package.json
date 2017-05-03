@@ -19,7 +19,6 @@
     "hexo-server": "^0.2.0"
   },
   "scripts": {
-    "preinstall": "npm install hexo-cli -g",
-    "pub": "hexo clean && hexo generate && sshpass -p Security421! scp -r public/* root@x.lan:/var/www/html/blog "
+    "preinstall": "npm install hexo-cli -g && git config user.email 'pengfei_yang@outlook.com'"
   }
 }

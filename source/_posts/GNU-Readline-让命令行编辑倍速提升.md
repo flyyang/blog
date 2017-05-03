@@ -82,3 +82,8 @@ shell中都有类似的功能。
 | Alt-# | 注释当前行，并跳到下一行 |
 | Ctrl-] | 向后搜索字符 |
 | Ctrl-Alt-] | 向前搜索字符 |
+
+
+> 有些终端 Alt 需要用 Esc 来替换。如果想使用 alt, 以 Xshell 为例，可以在
+“File -> Properties -> Terminal -> Keyboard” 中 的 `Use Alt as Meta key` 勾选即
+可。

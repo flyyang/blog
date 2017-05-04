@@ -4,8 +4,7 @@ date: 2017-05-03 16:02:10
 tags: efficiency
 ---
 
-你有没有遇到过这种场景？写了很长一串命令，运行时发现第一个字母写错了。然后一个
-字符一个字符的删除，改完再重新输入一遍。
+你有没有遇到过这种场景？写了很长一串命令，运行时发现第一个字母写错了。然后一个字符一个字符的删除，改完再重新输入一遍。
 
 没有必要！！！比如上面的问题，你仅仅需要`Control + a` 回到开头位置修正你的问题即可。这种在行内编辑文本的功能通常是由 GNU Readline提供的。
 
@@ -13,13 +12,11 @@ tags: efficiency
 
 ## GNU Readline是什么？
 
-GNU 的一个库，提供行内编辑，历史管理等功能。bash, mysql, zsh, python, node等的
-shell中都有类似的功能。
+GNU 的一个库，提供行内编辑，历史管理等功能。bash, mysql, zsh, python, node等的shell中都有类似的功能。
 
 ## 常用的 Shotcuts
 
-虽然 GNU Readline 作为一个类库存在，但我们并不关注如何利用其接口实现功能。此处
-只关注如何使用。感谢 Readline，使我们在不同的 shell 中有一致的体验。
+虽然 GNU Readline 作为一个类库存在，但我们并不关注如何利用其接口实现功能。此处只关注如何使用。感谢 Readline，使我们在不同的 shell 中有一致的体验。
 
 
 
@@ -84,6 +81,4 @@ shell中都有类似的功能。
 | Ctrl-Alt-] | 向前搜索字符 |
 
 
-> 有些终端 Alt 需要用 Esc 来替换。如果想使用 alt, 以 Xshell 为例，可以在
-“File -> Properties -> Terminal -> Keyboard” 中 的 `Use Alt as Meta key` 勾选即
-可。
+> 有些终端 Alt 需要用 Esc 来替换。如果想使用 alt, 以 Xshell 为例，可以在“File -> Properties -> Terminal -> Keyboard” 中 的 `Use Alt as Meta key` 勾选即可。

@@ -16,9 +16,11 @@
     "hexo-renderer-ejs": "^0.2.0",
     "hexo-renderer-marked": "^0.2.10",
     "hexo-renderer-stylus": "^0.3.1",
-    "hexo-server": "^0.2.0"
+    "hexo-server": "^0.2.0",
+    "hexo-wordcount": "^2.0.1"
   },
   "scripts": {
-    "preinstall": "npm install hexo-cli -g && git config user.email 'pengfei_yang@outlook.com'"
+    "preinstall": "npm install hexo-cli -g && git config user.email 'pengfei_yang@outlook.com'",
+    "deploy": "hexo clean && hexo generate && hexo deploy"
   }
 }

@@ -140,8 +140,166 @@ if (DEVELOPMENT) {
 
 上面的代码片段会导致整个包含函数被拒绝优化，尽管它永远不会被访问到。
 
-当前不会被优化的项目：
+当前没有被优化的项目：
 
-* __Generator 函数__（[V8 5.7](https://v8project.blogspot.de/2017/02/v8-release-57.html) 优化）
-* __包含 for of 语句的函数__ (V8 commit [11e1e20](https://github.com/v8/v8/commit/11e1e20) 优化)
-*
+* ~~Generator 函数~~（优化于 [V8 5.7](https://v8project.blogspot.de/2017/02/v8-release-57.html)）
+* ~~包含 for of 语句的函数~~ (优化于V8 commit [11e1e20](https://github.com/v8/v8/commit/11e1e20) ）
+* ~~包含 try catch 的函数~~ （优化于 V8 commit [9aac80f](https://github.com/v8/v8/commit/9aac80f)/ V8 5.3 / node 7.x）
+* ~~包含 try-finally 的语句~~ （优化于 V8 commit [9aac80f](https://github.com/v8/v8/commit/9aac80f)/ V8 5.3 / node 7.x）
+* ~~包含复合 let 赋值的函数~~（优化于 Chrome 56/ V8 5.6）
+* ~~包含复合 const 赋值的函数~~（优化于 Chrome 56/ V8 5.6）
+* 对象字面量包含 `_proto` 或者，`get` `set` 的声明的函数。
+
+Likely never optimizable:
+
+Functions that contain a debugger statement
+Functions that call literally eval()
+Functions that contain a with statement
+
+可能永远不会优化的项目：
+
+* 包含 `debugger` 语句的函数
+* 调用 `eval()` 执行字符串 的函数
+* 包含 `with` 语句的函数
+
+最后要说明的一点的是,出现以下任何一种形式，整个包含函数将不被优化：
+
+```
+function containsObjectLiteralWithProto() {
+    return {__proto__: 3};
+}
+```
+
+```
+function containsObjectLiteralWithGetter() {
+    return {
+        get prop() {
+            return 3;
+        }
+    };
+}
+```
+
+```
+function containsObjectLiteralWithSetter() {
+    return {
+        set prop(val) {
+            this.val = val;
+        }
+    };
+}
+```
+
+
+有必要特别提到的是, 直接使用 `eval` 或 `with` 会生成动态作用域，存在污染其他函
+数的可能性，因为你不知道从词法作用域的角度来确定变量到底在哪个作用域里。
+
+### Workarounds
+
+一些语句在生产环境中是无法避免的，如 `try-finally` 以及 `try-catch`。为了最小化
+影响，他们必须被放到一个小的函数里，使主函数不被污染。
+
+```
+var errorObject = {value: null};
+function tryCatch(fn, ctx, args) {
+    try {
+        return fn.apply(ctx, args);
+    }
+    catch(e) {
+        errorObject.value = e;
+        return errorObject;
+    }
+}
+
+var result = tryCatch(mightThrow, void 0, [1,2,3]);
+//Unambiguously tells whether the call threw
+if(result === errorObject) {
+    var error = errorObject.value;
+}
+else {
+    //result is the returned value
+}
+```
+
+3. 管理 `arguments`
+
+`arguments` 有多种方法导致函数不被优化。使用 `arguments` 必须非常小心。
+
+#### 3.1 对参数重新赋值，并且在函数体内包含了 `arguments` （非严格模式下）。
+例：
+
+```
+function defaultArgsReassign(a, b) {
+     if (arguments.length < 2) b = 5;
+}
+```
+
+Workaround, 把参数保存到另一个新的变量内：
+
+```
+function reAssignParam(a, b_) {
+    var b = b_;
+    //unlike b_, b can safely be reassigned
+    if (arguments.length < 2) b = 5;
+}
+```
+
+如果这是函数中的唯一用例，可以使用 `undefined` 检查来替换：
+
+```
+function reAssignParam(a, b) {
+    if (b === void 0) b = 5;
+}
+```
+
+但如果后续又引入 `arguments` ， 维护时可能会遗忘做类似替换
+
+Workround2: 为每一个函数，每一个文件开启 `use strict`。
+
+#### 3.2 `arguments` 返回
+
+```
+function leaksArguments1() {
+    return arguments;
+}
+```
+
+```
+function leaksArguments2() {
+    var args = [].slice.call(arguments);
+}
+```
+
+```
+function leaksArguments3() {
+    var a = arguments;
+    return function() {
+        return a;
+    };
+}
+```
+`arguments` 对象不能够被传递或者返回到任何地方。
+
+Workaround, inline 形式返回：
+
+```
+function doesntLeakArguments() {
+    //.length is just an integer, this doesn't leak
+    //the arguments object itself
+    var args = new Array(arguments.length);
+    for(var i = 0; i < args.length; ++i) {
+                //i is always valid index in the arguments object
+        args[i] = arguments[i];
+    }
+    return args;
+}
+
+function anotherNotLeakingExample() {
+    var i = arguments.length;
+    var args = [];
+    while (i--) args[i] = arguments[i];
+    return args
+}
+```
+
+

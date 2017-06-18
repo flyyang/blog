@@ -14,6 +14,8 @@ tags: JavaScript 性能优化
 vhf 同学也在维护一个类似的项目，试图涵盖所有 V8 Crankshaft 引擎性能优化杀手的
 方方面面：[V8 Bailout Reasons](https://github.com/vhf/v8-bailout-reasons)
 
+<!--more -->
+
 ### 一点V8背景
 
 在 V8 内部，没有解释器，但是有两个不同的编译器：通用编译器和优化编译器。意味着

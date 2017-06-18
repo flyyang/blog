@@ -301,4 +301,9 @@ function anotherNotLeakingExample() {
     return args
 }
 ```
+完成一个 `workaround` 需要很多代码，这很烦人，所以你需要权衡一下是否真的有必要
+这么做。优化通常意味着越来越多的代码，而代码越多，意味着需要深入了解 JavaScript
+的语义。
 
+不过，如果你有构建这一步骤的话，可以实现一个宏来构造soucre map，直接书写原来形
+式的代码即可。

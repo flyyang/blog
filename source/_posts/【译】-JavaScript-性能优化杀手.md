@@ -307,3 +307,178 @@ function anotherNotLeakingExample() {
 
 不过，如果你有构建这一步骤的话，可以实现一个宏来构造soucre map，直接书写原来形
 式的代码即可。
+
+```
+function doesntLeakArguments() {
+    INLINE_SLICE(args, arguments);
+    return args;
+}
+```
+
+上面的技术应用在 blubird 里， 构建出的结果如下：
+
+```
+function doesntLeakArguments() {
+    var $_len = arguments.length;
+    var args = new Array($_len);
+    for(var $_i = 0; $_i < $_len; ++$_i) {
+        args[$_i] = arguments[$_i];
+    }
+    return args;
+}
+```
+
+#### 3.3 赋值给 `arguments`
+
+在非严格模式下，可以出现以下代码：
+
+```
+function assignToArguments() {
+    arguments = 3;
+    return arguments;
+}
+```
+
+Workaround: 不要写这种白痴代码。在严格模式下，此代码会抛出异常。
+
+那么，什么是正确使用 `arguments`  的姿势呢？
+
+仅使用：
+
+* arguments.length
+* arguments[i], i 必须是合法的整数索引，并且不能超出范围。
+* 除上两条情况外，不要直接使用 arguments
+* 可以使用 fn.apply(y, arguments), 仅此一例，没有其他使用情况，如 .slice, 函数
+ apply 比较特殊。
+* 需要注意的是，添加属性到函数（如，fn.$inject =... ）以及绑定函数（也就是 函数
+ bind 的结果）会生成隐藏类，因此使用 apply 是不安全的。
+
+And note that the FUD about mentioning arguments causing an allocation of the arguments object is untrue when you use it in the mentioned safe ways.
+
+### Switch-Case
+
+以前，一个 switch-case 语句最多包含 128个 case 语句，超过 128 个的包含函数将不
+被优化。
+
+```
+function over128Cases(c) {
+    switch(c) {
+        case 1: break;
+        case 2: break;
+        case 3: break;
+        ...
+        case 128: break;
+        case 129: break;
+    }
+}
+```
+
+你需要保持 switch-case 中 case 语句小于等于 128 条，可以使用 函数数组，或者
+if-else 语句替换。
+
+这个限制被提升了，查看[此评论]（https://bugs.chromium.org/p/v8/issues/detail?id=2275#c9）
+
+## 5. For-in
+
+For-in 语句在某些情况下会导致整个函数被拒绝优化。
+
+所有的这些情况可以归结为“ For-in 太慢了”这一结论。
+
+#### 5.1 key 不是本地变量
+
+```
+function nonLocalKey1() {
+    var obj = {}
+    for(var key in obj);
+    return function() {
+        return key;
+    };
+}
+
+var key;
+function nonLocalKey2() {
+    var obj = {}
+    for(key in obj);
+}
+```
+
+因此，key 不能来自于上层或下层作用域，只能是本地变量。
+
+#### 5.2 被遍历的对象不是简单的 enumerable 对象
+
+##### 5.2.1 1. 对象处于 “哈希表模式” （也就是 “规约化模型”，或者 “字典模式” -
+以哈希表为数据结构的对象）不是简单的 enumerable 对象
+
+```
+function hashTableIteration() {
+    var hashTable = {"-": 3};
+    for(var key in hashTable);
+}
+```
+
+当你添加太多动态属性（在构造函数外），删除属性， 或者使用非正式的标识符等，对象
+会进入哈希表模式。换话句话说，当你像哈希表一样使用对象时，那么它就是哈希表。传
+递这样的对象给哈希表是错误的。你可以开启 nodejs 的 `--allow-natives-syntax` 并
+使用 `console.log(%)HashFastProperties(obj)` 来判定一个对象是处于哈希表模式。
+
+##### 5.2.2 对象原型链上具有 enumerable 属性
+
+```
+Object.prototype.fn = function() {}
+```
+
+上面的步骤给所有对象添加了一个 enumerable 的属性（除了 Object.create(null) ），
+因此任何包含 for-in 的语句将不会被优化（除非仅仅遍历 Object.create(null) 对象）。
+
+你可以通过 Object.defineProperty（不推荐在运行时调用，但是可以定义一些高效的静
+态属性比如原型属性） 创建非 enumerable 对象。
+
+##### 5.2.3 对象包含可枚举的数组片段
+
+一个属性是不是一个数组索引，在 ecmascript 文档中定义如下：
+
+> 一个属性名 P（String 值的形式）是否是array 索引，必须满足
+ToString(ToUnit32(p)) 等于 P 并且 ToUnit32(p) 不等于 232-1。 如果一个属性的属性
+名是一个数组索引，属性名也被叫做 元素。
+
+通常情况下，这是数组。但是对象也可以有数组片段： `normalObj[0] = value`;
+
+```
+function iteratesOverArray() {
+    var arr = [1, 2, 3];
+    for (var index in arr) {
+
+    }
+}
+```
+
+因此使用 for-in 不仅仅遍历数组比较慢，而且会导致整个包含函数不被优化。
+
+如果你传递一个非简单可遍历的对象给 `for-in` 语句，也会导致整个包含函数不被优化。
+
+Workaround: 一直使用 `Object.keys` 并且 使用 for 循环替代 `for-in`。 如果真的需
+要整个原型链所有的属性，使用一个隔离的帮助函数：
+
+```
+function inheritedKeys(obj) {
+    var ret = [];
+    for(var key in obj) {
+        ret.push(key);
+    }
+    return ret;
+}
+```
+
+## 6. 无明显退出条件或退出条件逻辑嵌套太深的无限循环
+
+在编码的时候，你知道某一处需要一个循环，但是却不知道退出条件是什么。因此你谢了
+一个 while(true) { 或者 for(;;) { , 后来写了一个 break 条件，搁在这里直到忘掉。
+重构时发现函数变慢或者你看到了一些反优化的模式 —— 这可能是罪魁祸首。
+
+将循环的退出条件重构到循环自己的条件部分可能并不容易. 如果代码的退出条件是结尾
+ if 语句的一部分, 并且代码至少会执行一次, 那可以重构为 do { } while (); 循环.
+ 如果退出条件在循环开头, 把它放进循环本身的条件部分. 如果退出条件在中间, 你可以
+尝试 “滚动” 代码: 每每从开头移动一部分代码到末尾, 也复制一份到循环开始之前. 一
+旦退出条件可以放置在循环的条件部分, 或者至少是一个比较浅的逻辑判断, 这个循环应
+该就不会被反优化了.
+

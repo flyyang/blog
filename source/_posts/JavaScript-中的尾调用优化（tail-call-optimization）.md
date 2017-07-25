@@ -77,6 +77,8 @@ tags: JavaScript
 
 这时候就有两个策略，一层一层的stack frame 网上堆。如下：
 
+
+```
 +--------------------+
 |                    |
 |                    |
@@ -93,6 +95,7 @@ tags: JavaScript
 | a      b       c   |
 |       main         |
 +--------------------+
+```
 
 但是由于是尾调用，a 的返回仅仅依赖 b 的调用。所以 a 的 stack frame 是没有必要保存的。那么尾调用优化后的结果是：
 
@@ -127,9 +130,9 @@ tags: JavaScript
 
 测试一下两种不同的模式：
 
-![safari-loose-error](/images/safari-loose-error.png)
+![safari-loose-error](/images/safari-loose-error.jpg)
 
-![safari-strict-error](/images/safari-strict-error.png)
+![safari-strict-error](/images/safari-strict-error.jpg)
 
 可以看到尾递归优化使得栈调用从O(n)变成了O(1)。
 

@@ -17,7 +17,7 @@ tags:
 ## 环境
 
 * PC: 2核2G
-* Webpack 2.1 
+* Webpack 2.1
 * Vue 2.2.1 以及Vue 2.0 全家桶
 * happypack 3.0.3
 
@@ -73,14 +73,14 @@ loaders: {
     include: path.join(projectRoot, 'src'),
     exclude: /node_modules/,
     loader: 'happypack/loader?id=babel',
-  }, 
+  },
 ```
 
 ## 实验
 
 ### 实验一
 
-![实验一](/public/images/happypack1.png)
+![实验一](/images/happypack1.png)
 
 1. happypack + babel。将js文件交由happypack去处理，性能提升9%。
 
@@ -125,7 +125,7 @@ loaders: {
           loader: 'vue-loader',
           options: {
             loaders: {
-              css: xxx, 
+              css: xxx,
               less: xxx,
               js: 'happypack/loader?id=babel'
             },
@@ -137,7 +137,7 @@ loaders: {
 
 ### 实验二——cache再测试
 
-![实验二](/public/images/happypack-cache.png)
+![实验二](/images/happypack-cache.png)
 
 1. happypack在处理越来越多的文件后，cache命中率提升，效率也有不少提升—— 2.79 %
 2. babel的cache似乎仍然会有regression问题。
@@ -150,7 +150,7 @@ loaders: {
 
 ### 实验四 -- eslint
 
-![实验四](/public/images/happypack-eslint.png)
+![实验四](/images/happypack-eslint.png)
 
 eslint通过happyloader提升惊人。达到50.84%。
 
@@ -194,7 +194,7 @@ eslint通过happyloader提升惊人。达到50.84%。
   },
 
   ...
-    
+
      var cssLoader = ExtractTextPlugin.extract({
       use: [
         {
@@ -211,7 +211,7 @@ eslint通过happyloader提升惊人。达到50.84%。
       ],
       fallback: 'vue-style-loader'
     })
-    
+
     {
     test: /\.vue$/,
     include: path.join(projectRoot, 'src'),

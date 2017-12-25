@@ -1,4 +1,3 @@
-
 Source code for my blog: [https://flyyang.github.io/](https://flyyang.github.io/)
 
 ## Setup
@@ -6,10 +5,9 @@ Source code for my blog: [https://flyyang.github.io/](https://flyyang.github.io/
 1. Install deps
 
 ```
-# `preinstall` will install hexo globally
-# and config my local git user
-# you **SHOULD FIX** this if you want make you own
-npm install && npm run preinstall
+npm install
+
+# npm config user.email 'pengfei_yang@outlook.com'
 ```
 
 2. Run server

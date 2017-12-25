@@ -71,10 +71,3 @@ deploy:
   type: git
   repository: https://github.com/flyyang/flyyang.github.io
   branch: master
-
-disqus_proxy:
-  shortname: flyyang
-  host: 45.77.185.184
-  port: 8080
-  admin_avatar:
-  default_avatar:

@@ -6,7 +6,7 @@
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "Hexo, NexT"
+keywords: "flyyang, javascript, node, css"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -286,28 +286,6 @@ mathjax:
   enable: false
   per_page: false
   cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
-
-
-# Swiftype Search API Key
-#swiftype_key:
-
-# Baidu Analytics ID
-#baidu_analytics:
-
-# Duoshuo ShortName
-#duoshuo_shortname:
-
-# Disqus
-disqus:
-  enable: true
-  shortname: flyyang
-  count: true
-
-# Google Analytics
-google_analytics: UA-98816389-1
-
-# Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO
-baidu_push: true
 
 # Local search
 local_search:

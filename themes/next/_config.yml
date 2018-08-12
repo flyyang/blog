@@ -14,7 +14,7 @@ keywords: "Hexo, NexT"
 rss:
 
 # Specify the date when the site was setup
-#since: 2015
+since: 2015
 
 # icon between year and author @Footer
 authoricon: heart
@@ -89,7 +89,7 @@ scheme: Pisces
 # - Introduce in 5.0.1
 # ---------------------------------------------------------------
 font:
-  enable: true
+  enable: false
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default)
   host:
@@ -303,160 +303,11 @@ disqus:
   shortname: flyyang
   count: true
 
-# Hypercomments
-#hypercomments_id:
-
-# Gentie productKey
-#gentie_productKey:
-
-# changyan
-changyan:
-  enable: false
-  appid:
-  appkey:
-
-# Support for youyan comments system.
-# You can get your uid from http://www.uyan.cc
-#youyan_uid: your uid
-
-# Support for LiveRe comments system.
-# You can get your uid from https://livere.com/insight/myCode (General web site)
-#livere_uid: your uid
-
-# Baidu Share
-# Available value:
-#    button | slide
-# Warning: Baidu Share does not support https.
-#baidushare:
-##  type: button
-
-# Share
-#jiathis:
-# Warning: JiaThis does not support https.
-#add_this_id:
-
-# Share
-#duoshuo_share: true
-
-# Google Webmaster tools verification setting
-# See: https://www.google.com/webmasters/
-#google_site_verification:
-
 # Google Analytics
 google_analytics: UA-98816389-1
 
-# Yandex Webmaster tools verification setting
-# See: https://webmaster.yandex.ru/
-#yandex_site_verification:
-
-# CNZZ count
-#cnzz_siteid:
-
-# Application Insights
-# See https://azure.microsoft.com/en-us/services/application-insights/
-# application_insights:
-
-# Make duoshuo show UA
-# user_id must NOT be null when admin_enable is true!
-# you can visit http://dev.duoshuo.com get duoshuo user id.
-duoshuo_info:
-  ua_enable: true
-  admin_enable: false
-  user_id: 0
-  #admin_nickname: Author
-
-
-# Facebook SDK Support.
-# https://github.com/iissnan/hexo-theme-next/pull/410
-facebook_sdk:
-  enable: false
-  app_id:       #<app_id>
-  fb_admin:     #<user_id>
-  like_button:  #true
-  webmaster:    #true
-
-# Facebook comments plugin
-# This plugin depends on Facebook SDK.
-# If facebook_sdk.enable is false, Facebook comments plugin is unavailable.
-facebook_comments_plugin:
-  enable: false
-  num_of_posts: 10  # min posts num is 1
-  width: 100%       # default width is 550px
-  scheme: light     # default scheme is light (light or dark)
-
-# VKontakte API Support.
-# To get your AppID visit https://vk.com/editapp?act=create
-vkontakte_api:
-  enable: false
-  app_id:       #<app_id>
-  like:         true
-  comments:     true
-  num_of_posts: 10
-
-
-# Show number of visitors to each article.
-# You can visit https://leancloud.cn get AppID and AppKey.
-leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
-
-# Show PV/UV of the website/page with busuanzi.
-# Get more information on http://ibruce.info/2015/04/04/busuanzi/
-busuanzi_count:
-  # count values only if the other configs are false
-  enable: false
-  # custom uv span for the whole site
-  site_uv: true
-  site_uv_header: <i class="fa fa-user"></i>
-  site_uv_footer:
-  # custom pv span for the whole site
-  site_pv: true
-  site_pv_header: <i class="fa fa-eye"></i>
-  site_pv_footer:
-  # custom pv span for one page only
-  page_pv: true
-  page_pv_header: <i class="fa fa-file-o"></i>
-  page_pv_footer:
-
-
-# Tencent analytics ID
-# tencent_analytics:
-
-# Tencent MTA ID
-# tencent_mta:
-
-
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO
 baidu_push: true
-
-# Google Calendar
-# Share your recent schedule to others via calendar page
-#
-# API Documentation:
-# https://developers.google.com/google-apps/calendar/v3/reference/events/list
-calendar:
-  enable: false
-  calendar_id: <required>
-  api_key: <required>
-  orderBy: startTime
-  offsetMax: 24
-  offsetMin: 4
-  timeZone:
-  showDeleted: false
-  singleEvents: true
-  maxResults: 250
-
-# Algolia Search
-algolia_search:
-  enable: false
-  hits:
-    per_page: 10
-  labels:
-    input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}"
-    hits_stats: "${hits} results found in ${time} ms"
-
 
 # Local search
 local_search:
@@ -539,8 +390,6 @@ vendors:
   #three
   three:
   three_waves:
-
-
 
 # Assets
 css: css

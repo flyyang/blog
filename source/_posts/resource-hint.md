@@ -27,6 +27,8 @@ tags:
 ```
 但也会有些不同。下面做详细介绍。
 
+<!-- more -->
+
 ## Resource Hint  分类介绍
 
 先介绍 `dns-prefetch` 和 `preconnect`。在介绍这两者之前， 先看一下这张图：
@@ -138,3 +140,7 @@ chrome 的 prerender 并不会直接渲染页面。在各个浏览器测试功�
 * [w3c Resource Hint](https://www.w3.org/TR/resource-hints/)
 * [webpack prefetch preload](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c)
 * [测试用例](https://github.com/flyyang/resource-hint-demo)
+
+## ISSUE
+
+有问题？来 [github](https://github.com/flyyang/blog/issues/10) 一起讨论。

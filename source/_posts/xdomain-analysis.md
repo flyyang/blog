@@ -118,3 +118,6 @@ xdomain 的思路是：
 * [XDomainRequest](https://developer.mozilla.org/en-US/docs/Web/API/XDomainRequest)
 * [contentWindow](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/contentWindow)
 * [Event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture)
+
+ISSUE
+有问题？来 [github](https://github.com/flyyang/blog/issues/11) 一起讨论。

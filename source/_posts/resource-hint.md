@@ -1,7 +1,7 @@
 ---
 title: Resource Hint 介绍
 date: 2018-12-13 20:21:41
-tags:
+tags: 性能优化
 ---
 ## Resource Hint 是什么？
 

@@ -97,7 +97,7 @@ xdomain 的思路是：
 9. master 告知 slave 关闭 socket。
 10. slave 告知 master 关闭 socket。
 ```
-注意在第7条中， xhr-event 是 proxy.html 发 ajax 触发一系列请求过程的消息转发。通过 [xhook]() 控制  master 的 beforeXHR 将数据最终放到 a.com 的 请求 response 里。
+注意在第7条中， xhr-event 是 proxy.html 发 ajax 触发一系列请求过程的消息转发。通过 [xhook]() 控制  master 的 beforeXHR 将数据最终放到 master 的 请求 response 里。
 ## 其他
 
 * xdomian 实现了一套自己的通信协议。并且主从代码打在了一起。从设计到实现都很精妙。
@@ -119,5 +119,5 @@ xdomain 的思路是：
 * [contentWindow](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/contentWindow)
 * [Event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture)
 
-ISSUE
+## ISSUE
 有问题？来 [github](https://github.com/flyyang/blog/issues/11) 一起讨论。

@@ -27,6 +27,8 @@ v8 是 c++ 代码，在 node 中有对应的 [vm.Script](https://nodejs.org/api/
 
 [v8-compile-cache](https://github.com/zertosh/v8-compile-cache) 便是这样一个仓库- 对编译中间过程持久化，加快整体执行时间。
 
+<!-- more -->
+
 ## 源码分析
 
 
@@ -496,6 +498,10 @@ yyang/devspace/test-v8-file-size/a.js":["cc0579eda025ac6d18f3914d42ba60abe2b1a8e
 
 * 工具类应用使用此包会加速构建速度。
 * 开发，甚至是了解需要对 node 的运行，v8 周边有深入了解。
+
+## issue
+
+有问题，来 [github](https://github.com/flyyang/blog/issues/13) 一起讨论。
 
 ##  参考
 

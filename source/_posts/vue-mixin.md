@@ -527,3 +527,7 @@ Vue.config.optionMergeStrategies.myOption = function (toVal, fromVal) {
 * [http://techsith.com/mixins-in-javascript/](http://techsith.com/mixins-in-javascript/)
 * [https://vuejs.org/v2/guide/mixins.html](https://vuejs.org/v2/guide/mixins.html)
 * [https://css-tricks.com/using-mixins-vue-js/](https://css-tricks.com/using-mixins-vue-js/)
+
+## issue
+
+有问题？来 [github](https://github.com/flyyang/blog/issues/14) 一起[]讨论

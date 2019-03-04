@@ -25,7 +25,7 @@ webpack 2 以上会默认读 module 字段指定的文件。esm 模块方便做 
 
 现在很多的包使用 npm scripts 来做构建流程脚本。我们可以看到 vue 内部有许多研发流程脚本在 scripts字段内， 我们关注 build 部分代码：
 
-```
+```bash
     "build": "node scripts/build.js",
     "build:ssr": "npm run build -- web-runtime-cjs,web-server-renderer",
     "build:weex": "npm run build -- weex",
@@ -53,7 +53,7 @@ webpack 2 以上会默认读 module 字段指定的文件。esm 模块方便做 
 
 我们简要分析一下这几个文件。在 `scripts/build.js` 中：
 
-```
+```js
 function buildEntry (config) {
   const output = config.output
   const { file, banner } = output
@@ -82,7 +82,7 @@ buildEntry 方法暴露了 vue 的构建流程是依赖 rollup 的。
 
 在 `scripts/config.js` 中：
 
-```
+```js
 const resolve = p => {
   const base = p.split('/')[0]
   if (aliases[base]) {
@@ -105,7 +105,7 @@ const builds = {
 
 config 的 resolve 遇到在 alias 中的文件会特殊处理。alias 定义在 `scripts/alias.js`。
 
-```
+```js
 const resolve = p => path.resolve(__dirname, '../', p)
 
 module.exports = {
@@ -136,4 +136,4 @@ Vue 的 入口 都在 plaforms 的 web 、 weex、sever 下。具体参考 scrip
 
 ## ISSUE
 
-有问题，来 【GitHub】(https://github.com/flyyang/blog/issues/16) 一起讨论。
+有问题，来 [GitHub](https://github.com/flyyang/blog/issues/16) 一起讨论。

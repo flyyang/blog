@@ -117,4 +117,4 @@ Vue 的源码生成的整个过程中，有一个非常重要的点是，将各�
 
 ## ISSUE
 
-有问题？来 (Github)[https://github.com/flyyang/blog/issues/17] 一起讨论。
+有问题？来 [Github](https://github.com/flyyang/blog/issues/17) 一起讨论。

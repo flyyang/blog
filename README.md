@@ -1,4 +1,4 @@
-Source code for my blog: [https://flyyang.github.io/](https://flyyang.github.io/)
+Source code for my blog: [https://flyyang.me](https://flyyang.me)
 
 ## Setup
 
@@ -13,7 +13,7 @@ npm install
 2. Run server
 
 ```
-# This step
+# This step is optional
 hexo server
 ```
 
@@ -23,6 +23,8 @@ hexo server
 hexo new post "your-post-name"
 ```
 
-## Make your own
+4. Deploy to github
 
-`TODO`
+```
+npm run deploy
+```

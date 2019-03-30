@@ -16,6 +16,7 @@ function fileParser(fileType) {
 ```
 每增加一种类型，我们需要修改我们的 fileParser 函数，增加一个条件判断。这样不够优雅。
 
+<!--more-->
 ## 实现
 
 nodejs 的 require 函数也会遇到上面的情况，它需要针对三种不同的类型 —— js、json、node 分别做处理。我们来看看它是如何[实现](https://github.com/nodejs/node/blob/master/lib/internal/modules/cjs/loader.js)的：

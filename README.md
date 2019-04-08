@@ -6,8 +6,6 @@ Source code for my blog: [https://flyyang.me](https://flyyang.me)
 
 ```
 npm install
-
-# npm config user.email 'pengfei_yang@outlook.com'
 ```
 
 2. Run server
